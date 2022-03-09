@@ -1,0 +1,135 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
+int main()
+{   int i,j;
+    int ra = 0;
+    int nota;
+    int ntotal=0;
+    int nalunos = 0;
+    int freq[11]= {0};
+    char gab[10] = {'a', 'b', 'c', 'd', 'e', 'a', 'b', 'c', 'd', 'e'};
+    char resp[10];
+    int aprov = 0;
+    int reprov = 0;
+    int maior=0;
+    int total;
+    float med, porcen;
+ 
+    
+    printf ("\n SISTEMA DE CORREÇÃO DE PROVAS \n");
+    printf ("(DIGITE: RA 9999 para encerrar a digitação)\n");
+   
+  while(true) { 
+    nota = 0;
+
+      do{
+          printf("\n Digite o RA: ");
+          scanf ("%d", &ra);
+          }while(0 > ra || ra > 9999);
+
+      if(ra == 9999){
+        break;
+      scanf ("%d", &ra);}
+    
+
+      nalunos = nalunos+1;
+      getchar();
+      printf ("\nDigite as respostas:\n");
+      {  scanf("%c %c %c %c %c %c %c %c %c %c", &resp[0], &resp[1], &resp[2] , &resp[3], &resp[4], &resp[5], &resp[6], &resp[7], &resp[8], &resp[9]);
+      }
+    
+      printf ("\nRESPOSTAS DO RA - %d: %c %c %c %c %c %c %c %c %c %c", ra, resp[0], resp[1], resp[2] , resp[3], resp[4], resp[5], resp[6], resp[7], resp[8], resp[9]);
+    
+ 
+      for (i=0; i<10; i++){    
+      if (resp[i]==gab[i])
+        { nota++;
+        }}
+   
+      printf ("\nRA:%d NOTA DO ALUNO:%.1d\n", ra,nota); 
+  
+      if(nota>=5) {
+         aprov++;
+        }
+   
+      else 
+      { (reprov++);
+      }
+      ntotal = ntotal + nota; 
+
+ switch (nota){
+ 
+ case 0:
+ freq[0]++;
+ break;
+ 
+ case 1:
+ freq[1]++;
+ break;
+ 
+ case 2:
+ freq[2]++;
+ break;
+ 
+ case 3:
+ freq[3]++;
+ break;
+ 
+ case 4:
+ freq[4]++;
+ break;
+ 
+ case 5:
+ freq[5]++;
+ break;
+ 
+ case 6:
+ freq[6]++;
+ break;
+ 
+ case 7:
+ freq[7]++;
+ break;
+ 
+ case 8:
+ freq[8]++;
+ break;
+ 
+ case 9:
+ freq[9]++;
+ break;
+ 
+ case 10:
+ freq[10]++;
+ break;
+ 
+ }
+
+  }
+  
+  
+ for (j=0; j<11; j++)
+ { if  (freq[j] > maior)
+  maior = j;
+ }
+ 
+ 
+ printf ("\nRELATÓRIO FINAL");
+ printf ("\n========================================\n");
+ printf ("\n1. NOTA com maior FREQUENCIA ABSOLUTA: %d", maior);
+  
+ porcen = aprov * 100/ nalunos;
+ printf ("\n2. PORCENTAGEM DE APROVAÇÃO: %.1f", porcen);
+  
+ med = ntotal /(aprov+reprov);
+ printf ("\n3. NOTA MEDIA : %.1f", med);
+ 
+ 
+ 
+ 
+ 
+  return 0;
+}
