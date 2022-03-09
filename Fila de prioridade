@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+struct pessoa {
+    char nome[20];
+    int idd;
+}; 
+typedef struct pessoa elemento;
+
+struct no{
+    elemento info;
+    struct no*link;
+};
+typedef struct no no;
+struct fila{
+    no* ini, *fim;
+ };
+typedef struct fila fila;
+
+void erro(int e){
+    switch(e){
+       case 0: printf("\n Vazia!"); exit(1);
+       case 1: printf("\n ERRO OVERFLOW!"); exit(1);
+       case 2: printf("\n ERRO UNDERFLOW!"); exit(1);
+       case 3: printf("\n Erro de alocacao!"); exit(1);
+   }
+}
+fila init (){
+    fila q;
+    q.ini = q.fim = NULL;
+    return q;
+}
+int empty (fila q){
+    if(q.ini == NULL) return 1;
+    return 0;
+}
+no* novono()
+{
+    no* nv;
+    nv = (no*) malloc (sizeof(no));
+    if(nv == NULL) erro(3);
+    return nv;
+}
+void inserir (fila *q, elemento v){
+    no* novo;
+    novo = novono();
+    novo->info=v;
+    novo->link= NULL;
+    if(q->ini == NULL)///fila vazia
+            q->ini= novo;
+    else q->fim->link = novo;
+    q->fim = novo;///todas as situaçoes
+}
+elemento eliminar (fila *q){
+    elemento v;
+    no* x;
+    if(empty(*q)) erro(2);
+    v = q->ini->info;
+    x = q->ini;
+    if (q->ini== q->fim) q->fim =NULL;///apenas um no
+    q->ini = q->ini->link;
+    free(x);
+    return v;
+}
+elemento consultar (fila q){
+    if(empty(q)) erro(0);
+    return q.ini->info;
+}
+
+
+int main()
+{
+    fila M80, M60, geral;
+    char opc;
+    elemento v;
+    elemento aux;
+
+    //inicializar filas
+    M80 = init();
+    M60 = init();
+    geral = init();
+    
+    printf("\n============== MENU =============");
+   
+    while(opc!='S') {
+    printf("\n[(C)hegada (A)tendimento (S)air]: "); 
+    scanf("%c", &opc); opc = toupper(opc);
+    switch(opc) {
+        
+        //inserção das pessoas na fila - de acordo com a idade
+        case 'C': 
+        printf("\nDigite seu nome: "); scanf("%s", v.nome);
+        printf("\nDigite sua idade: "); scanf("%d", &v.idd);
+        if(v.idd >= 80) {
+          inserir (&M80, v);
+          printf("\n%s ENTROU NA FILA!", v.nome);
+        } 
+        if (v.idd >= 60 && v.idd < 80)  {
+           inserir (&M60, v);
+          printf("\n%s ENTROU NA FILA!", v.nome);
+        } 
+        
+        if(v.idd < 60 && v.idd < 80) {
+        inserir (&geral, v);
+        printf("\n%s ENTROU NA FILA!", v.nome);
+        }   
+        break;
+        
+        //atendimento das pessoas da fila - de acordo com prioridade
+       case 'A':
+       // SE a fila M80 não estiver vazia, elimine...
+       if(!(empty(M80))) { 
+        aux =  eliminar(&M80);
+        printf("\n%s foi para o atendimento", aux.nome);
+        break;
+       }
+       
+       // SE a fila M80 estiver vazia, e a M60 não estiver vazia, elimine...
+       if((empty(M80)) && !(empty(M60))) {
+        aux =  eliminar(&M60);
+        printf("\n%s foi para o atendimento", aux.nome);
+        break;
+       }
+       
+        // SE a fila M60 estiver vazia, e a geral não estiver vazia, elimine...
+        if((empty(M60)) && !(empty(geral))) {
+        aux =  eliminar(&geral);
+        printf("\n%s foi para o atendimento", aux.nome);
+        break;
+             }
+         }
+    
+    } 
+
+    return 0;
+}
+
+
+
+
