@@ -1,0 +1,72 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+
+int
+main ()
+{
+  float v1, v2, conta;
+  char op;
+  char s, n;
+  int v = 1;
+
+//enquanto a opção seja 1
+  while (v == 1)
+    {
+      printf ("\n \n ");
+      printf ("\nCALCULADORA \n ");
+      printf ("\nDigite uma expressao: ");
+      scanf ("%f%c%f", &v1, &op, &v2);
+
+//opções da calculadora
+      switch (op)
+	{
+	case '*':
+	  conta = v1 * v2;
+	  printf ("\nCONTA: %1.f * %1.f  = %1.f", v1, v2, conta);
+	  break;
+
+	case '+':
+	  conta = v1 + v2;
+	  printf ("\nCONTA: %.1f + %.1f = %.1f", v1, v2, conta);
+	  break;
+
+	case '-':
+	  printf ("\nCONTA: %.1f - %.1f = %.1f", v1, v2, conta);
+	  break;
+
+	case '/':
+	  if (v2 == 0)
+	    {
+	      printf ("Divisao Invalida");
+	    }
+	  else
+	    conta = v1 / v2;
+	  printf ("%.1f/%.1f = %.1f", v1, v2, conta);
+	  break;
+
+	case '%':
+	  if (v1 != (int) v1 || v2 != (int) v2)
+	    {
+	      printf ("Os numeros nao sao inteiros");
+	    }
+	  else
+	    {
+	      conta = (int) v1 % (int) v2;
+	    }
+	  break;
+
+	}
+
+      printf ("\n\nDigite 1 para continuar e 0 para encerrar\n \n");
+      scanf ("%d", &v);
+
+    }
+  return 0;
+}
